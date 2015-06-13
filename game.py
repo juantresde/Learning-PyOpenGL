@@ -45,18 +45,18 @@ def draw():                                            # ondraw is called all th
 def press(key, x, y):
 	global rect_y
 	global rect_x
-	# up
-	if key == 101:
-	    rect_y += 5
 
+	# up
+	if key == GLUT_KEY_UP:
+	    rect_y += 5
     # down
-	if key == 103:
+	if key == GLUT_KEY_DOWN:
 		rect_y -= 5
     #left 
-	if key == 100:
+	if key == GLUT_KEY_LEFT:
 		rect_x -= 5
     # right
-	if key == 102:
+	if key == GLUT_KEY_RIGHT:
 		rect_x += 5
 
 
