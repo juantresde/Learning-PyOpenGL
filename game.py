@@ -3,11 +3,22 @@ from OpenGL.GLUT import *
 from OpenGL.GLU import *
 
 window = 0                                             # glut window number
-width, height = 500, 400  
-rect_x = 10
-rect_y = 10 
-                          # window size
 
+#initial position of the quard
+rect_x = 0
+rect_y = 200
+
+#constants
+RECT_WIDTH = 50
+RECT_HEIGHT = 50
+RECT_DELAY = 20
+width, height = 400, 400                               # width and height of the window
+
+#vector of direction
+dy = -10
+dx = 15
+
+# window size
 def draw_rect(x, y, width, height):
     glBegin(GL_QUADS)                                  # start drawing a rectangle
     glVertex2f(x, y)                                   # bottom left point
@@ -37,9 +48,7 @@ def draw():                                            # ondraw is called all th
     # ToDo draw rectangle
     refresh2d(width, height)   
     glColor3f(0.0, 0.0, 2.0)
-    draw_rect(rect_x, rect_y, 200, 200)
-    glColor3f(1.0, 0.0, 9.0)
-    draw_line()
+    draw_rect(rect_x, rect_y, RECT_WIDTH, RECT_HEIGHT)
     glutSwapBuffers()                                  # important for double buffering
 
 def press(key, x, y):
@@ -60,15 +69,42 @@ def press(key, x, y):
 		rect_x += 5
 
 
+def rect_fall(value):
+	global rect_y, rect_x, dy, dx
+
+	rect_y += dy
+	rect_x += dx
+
+	#collision with the bottom wall
+	if rect_y >= 0:
+		dy = -1 * dy
+
+	#collision with the up wall
+	if rect_y <= height - RECT_HEIGHT:
+		dy = -1 * dy
+
+	#collision with the right wall
+	if rect_x <= width - RECT_WIDTH:
+		dx = -1 * dx
+
+	#collision with the left wall
+	if rect_x >= 0:
+		dx = -1 * dx
+
+
+	#action all the time
+	glutTimerFunc(RECT_DELAY, rect_fall, 0)
+
 
 # initialization
 glutInit()                                             # initialize glut
 glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_DEPTH)
 glutInitWindowSize(width, height)                      # set window size
 glutInitWindowPosition(0, 0)                           # set window position
-window = glutCreateWindow("noobtuts.com")              # create window with title
+window = glutCreateWindow("Moving ball")             # create window with title
 glutDisplayFunc(draw)                                  # set draw function callback
 #glutKeyboardFunc(press)
 glutSpecialFunc(press)
 glutIdleFunc(draw)                                     # draw all the time
+glutTimerFunc(RECT_DELAY, rect_fall, 0)
 glutMainLoop() 
