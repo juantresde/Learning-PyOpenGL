@@ -4,17 +4,17 @@ from OpenGL.GLU import *
 
 window = 0                                             # glut window number
 
-#initial position of the quard
+# initial position of the quard
 rect_x = 0
 rect_y = 200
 
-#constants
+# constants
 RECT_WIDTH = 50
 RECT_HEIGHT = 50
 RECT_DELAY = 20
 width, height = 400, 400                               # width and height of the window
 
-#vector of direction
+# vector of direction
 dy = -10
 dx = 15
 
@@ -61,7 +61,7 @@ def press(key, x, y):
     # down
 	if key == GLUT_KEY_DOWN:
 		rect_y -= 5
-    #left 
+    # left 
 	if key == GLUT_KEY_LEFT:
 		rect_x -= 5
     # right
@@ -75,24 +75,24 @@ def rect_fall(value):
 	rect_y += dy
 	rect_x += dx
 
-	#collision with the bottom wall
+	# collision with the bottom wall
 	if rect_y >= 0:
 		dy = -1 * dy
 
-	#collision with the up wall
+	# collision with the up wall
 	if rect_y <= height - RECT_HEIGHT:
 		dy = -1 * dy
 
-	#collision with the right wall
+	# collision with the right wall
 	if rect_x <= width - RECT_WIDTH:
 		dx = -1 * dx
 
-	#collision with the left wall
+	# collision with the left wall
 	if rect_x >= 0:
 		dx = -1 * dx
 
 
-	#action all the time
+	# action all the time
 	glutTimerFunc(RECT_DELAY, rect_fall, 0)
 
 
