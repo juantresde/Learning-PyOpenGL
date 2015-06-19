@@ -52,48 +52,47 @@ def draw():                                            # ondraw is called all th
     glutSwapBuffers()                                  # important for double buffering
 
 def press(key, x, y):
-	global rect_y
-	global rect_x
+    global rect_y
+    global rect_x
 
-	# up
-	if key == GLUT_KEY_UP:
-	    rect_y += 5
+    # up
+    if key == GLUT_KEY_UP:
+        rect_y += 5
     # down
-	if key == GLUT_KEY_DOWN:
-		rect_y -= 5
+    if key == GLUT_KEY_DOWN:
+        rect_y -= 5
     # left 
-	if key == GLUT_KEY_LEFT:
-		rect_x -= 5
+    if key == GLUT_KEY_LEFT:
+        rect_x -= 5
     # right
-	if key == GLUT_KEY_RIGHT:
-		rect_x += 5
+    if key == GLUT_KEY_RIGHT:
+        rect_x += 5
 
 
 def rect_fall(value):
-	global rect_y, rect_x, dy, dx
+    global rect_y, rect_x, dy, dx
 
-	rect_y += dy
-	rect_x += dx
+    rect_y += dy
+    rect_x += dx
 
-	# collision with the bottom wall
-	if rect_y >= 0:
-		dy = -1 * dy
+    # collision with the bottom wall
+    if rect_y >= 0:
+        dy = -1 * dy
 
-	# collision with the up wall
-	if rect_y <= height - RECT_HEIGHT:
-		dy = -1 * dy
+    # collision with the up wall
+    if rect_y <= height - RECT_HEIGHT:
+        dy = -1 * dy
 
-	# collision with the right wall
-	if rect_x <= width - RECT_WIDTH:
-		dx = -1 * dx
+    # collision with the right wall
+    if rect_x <= width - RECT_WIDTH:
+        dx = -1 * dx
 
-	# collision with the left wall
-	if rect_x >= 0:
-		dx = -1 * dx
+    # collision with the left wall
+    if rect_x >= 0:
+        dx = -1 * dx
 
-
-	# action all the time
-	glutTimerFunc(RECT_DELAY, rect_fall, 0)
+    # action all the time
+    glutTimerFunc(RECT_DELAY, rect_fall, 0)
 
 
 # initialization
@@ -103,7 +102,7 @@ glutInitWindowSize(width, height)                      # set window size
 glutInitWindowPosition(0, 0)                           # set window position
 window = glutCreateWindow("Moving ball")             # create window with title
 glutDisplayFunc(draw)                                  # set draw function callback
-#glutKeyboardFunc(press)
+# glutKeyboardFunc(press)
 glutSpecialFunc(press)
 glutIdleFunc(draw)                                     # draw all the time
 glutTimerFunc(RECT_DELAY, rect_fall, 0)
